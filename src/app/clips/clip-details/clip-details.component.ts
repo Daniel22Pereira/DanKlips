@@ -20,13 +20,15 @@ export class ClipDetailsComponent implements OnInit{
   constructor(private videoService: VideoService, private route: ActivatedRoute, private sanitizer: DomSanitizer) {}
 
   ngOnInit() {
-    this.videoId = this.route.snapshot.params['id'];
+    this.route.params.subscribe(params => {
+      this.videoId = params['id'];
 
-    this.videoService.getVideo(this.videoId).subscribe(video => {
-      this.videoName = video.name;
-      this.videoThumbnail = video.thumbnail;
-      const embedLink = video.link.replace('watch?v=', 'embed/') + '?autoplay=1' + '&controls=1';
-      this.safeVideoLink = this.sanitizer.bypassSecurityTrustResourceUrl(embedLink);
+      this.videoService.getVideo(this.videoId).subscribe(video => {
+        this.videoName = video.name;
+        this.videoThumbnail = video.thumbnail;
+        const embedLink = video.link.replace('watch?v=', 'embed/') + '?autoplay=1' + '&controls=1' + '&start=0';
+        this.safeVideoLink = this.sanitizer.bypassSecurityTrustResourceUrl(embedLink);
+      });
     });
   }
 

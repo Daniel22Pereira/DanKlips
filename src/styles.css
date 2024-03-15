@@ -12,4 +12,14 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+
+  .gradient {
+    background: rgb(28, 28, 28);
+    background: linear-gradient(
+      90deg,
+      rgba(28, 28, 28, 1) 20%,
+      rgba(42, 47, 55, 1) 55%,
+      rgba(0, 173, 181, 1) 100%
+    );
+  }
 }

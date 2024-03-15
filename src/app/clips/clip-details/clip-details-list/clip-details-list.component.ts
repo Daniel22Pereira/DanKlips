@@ -19,15 +19,17 @@ export class ClipDetailsListComponent implements OnInit {
   videoId: string;
 
   ngOnInit(): void {
-    this.videoId = this.route.snapshot.params['id'];
+    this.route.params.subscribe(params => {
+      this.videoId = params['id'];
 
-    this.videoService.getVideos().subscribe((videos) => {
-      this.clipList = videos.filter(video => video.id.toString() !== this.videoId);
-    });
-
-    this.videoService.videosUpdated$.subscribe(() => {
       this.videoService.getVideos().subscribe((videos) => {
         this.clipList = videos.filter(video => video.id.toString() !== this.videoId);
+      });
+
+      this.videoService.videosUpdated$.subscribe(() => {
+        this.videoService.getVideos().subscribe((videos) => {
+          this.clipList = videos.filter(video => video.id.toString() !== this.videoId);
+        });
       });
     });
   }

@@ -26,7 +26,7 @@ export class VideoService {
   }
 
   getVideos() {
-    return from(supabase.from('videos').select('*')).pipe(
+    return from(supabase.from('videos').select('*').order('addedAt', { ascending: false })).pipe(
       map(response => response.data as Clip[])
     );
   }
