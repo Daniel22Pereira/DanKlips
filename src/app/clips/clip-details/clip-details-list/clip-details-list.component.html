@@ -1,0 +1,10 @@
+<div class="h-full flex flex-col gap-2">
+  <app-clip-details-item
+  *ngFor="let clip of clipList"
+    [videoName]="clip.name"
+    [videoThumbnail]="clip.thumbnail"
+    [videoLink]="clip.link"
+    [videoId]="clip.id"
+    [videoDate]="clip.addedAt"
+  ></app-clip-details-item>
+</div>
