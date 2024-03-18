@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { createClient } from '@supabase/supabase-js';
 import { environment } from '../../environments/environment';
-import { from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Clip } from '../clips/clip.model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, from, of } from 'rxjs';
 
 const supabase = createClient(environment.supabase.url, environment.supabase.key);
 
@@ -12,10 +11,18 @@ const supabase = createClient(environment.supabase.url, environment.supabase.key
   providedIn: 'root'
 })
 export class VideoService {
+
+  private videos: Clip[] = [];
+
   private videosUpdated = new BehaviorSubject<void>(null);
+  private searchTerm = new BehaviorSubject<string>('');
 
   get videosUpdated$() {
     return this.videosUpdated.asObservable();
+  }
+
+  get searchTerm$() {
+    return this.searchTerm.asObservable();
   }
 
   addVideo(videoId:string, videoLink: string, videoName: string, videoThumbnail: string): void {
@@ -27,7 +34,10 @@ export class VideoService {
 
   getVideos() {
     return from(supabase.from('videos').select('*').order('addedAt', { ascending: false })).pipe(
-      map(response => response.data as Clip[])
+      map(response => {
+        this.videos = response.data as Clip[];
+        return this.videos;
+      })
     );
   }
 
@@ -41,5 +51,14 @@ export class VideoService {
     supabase.from('videos').delete().match({ link }).then(() => {
       this.videosUpdated.next();
     });
+  }
+
+  setSearchTerm(searchTerm: string) {
+    this.searchTerm.next(searchTerm);
+  }
+
+  searchVideos() {
+    const searchTerm = this.searchTerm.getValue().toLowerCase();
+    return of(this.videos.filter(video => video.name.toLowerCase().includes(searchTerm)));
   }
 }

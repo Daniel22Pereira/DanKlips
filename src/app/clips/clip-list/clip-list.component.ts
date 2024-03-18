@@ -22,5 +22,11 @@ export class ClipListComponent implements OnInit {
         this.clipList = videos;
       });
     });
+
+    this.videoService.searchTerm$.subscribe(() => {
+      this.videoService.searchVideos().subscribe(videos => {
+        this.clipList = videos;
+      });
+    });
   }
 }

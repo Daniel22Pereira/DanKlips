@@ -1,0 +1,30 @@
+<form (submit)="search(searchInput.value)" class="flex items-center w-full">
+  <input #searchInput
+    type="text"
+    id="simple-search"
+    class="w-full bg-[#EEEEEE] border-2 border-[#2a2f37] text-gray-900 h-full p-2.5 text-sm rounded-lg rounded-r-none focus:outline-none dark:bg-[#2a2f37] dark:placeholder-[#EEEEEE] dark:text-[#EEEEEE] dark:border-[#EEEEEE] dark:focus:border-[#00adb5] focus:border-[#00adb5]"
+    placeholder="Search video name..."
+    required
+  />
+  <button
+    type="submit"
+    class="h-full px-3 text-sm font-medium text-black bg-[#EEEEEE] rounded-lg rounded-l-none border-2 border-l-0 border-[#2a2f37] hover:border-[#00adb5]
+    hover:text-[#00adb5] focus:outline-none dark:bg-[#2a2f37] dark:border-gray-300 dark:text-[#EEEEEE] dark:hover:border-[#00adb5] dark:hover:text-[#00adb5]"
+  >
+    <svg
+      class="w-4 h-4"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 20 20"
+    >
+      <path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+      />
+    </svg>
+  </button>
+</form>

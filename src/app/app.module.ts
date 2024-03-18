@@ -15,6 +15,7 @@ import { ModalDeleteComponent } from './modals/delete/modal-delete.component';
 import { ClipDetailsComponent } from './clips/clip-details/clip-details.component';
 import { ClipDetailsListComponent } from './clips/clip-details/clip-details-list/clip-details-list.component';
 import { ClipDetailsItemComponent } from './clips/clip-details/clip-details-item/clip-details-item.component';
+import { SearchBoxComponent } from './search-box/search-box.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ClipDetailsItemComponent } from './clips/clip-details/clip-details-item
     ClipDetailsComponent,
     ClipDetailsListComponent,
     ClipDetailsItemComponent,
+    SearchBoxComponent,
   ],
   imports: [
     BrowserModule,

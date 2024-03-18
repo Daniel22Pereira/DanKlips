@@ -1,6 +1,6 @@
 export class Clip {
     constructor(
-        public id: number,
+        public id: string,
         public link: string,
         public name: string,
         public thumbnail: string

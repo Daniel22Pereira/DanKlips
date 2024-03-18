@@ -14,12 +14,12 @@
   }
 
   .gradient {
-    background: rgb(28, 28, 28);
+    background: #1c1c1c;
     background: linear-gradient(
       90deg,
-      rgba(28, 28, 28, 1) 20%,
-      rgba(42, 47, 55, 1) 55%,
-      rgba(0, 173, 181, 1) 100%
+      #1c1c1c 20%,
+      #2a2f37 55%,
+      #00adb5 100%
     );
   }
 }

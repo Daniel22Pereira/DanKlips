@@ -1,4 +1,4 @@
-<div routerLink="/clips/details/{{videoId}}" class="relative group/card hover:cursor-pointer overflow-hidden rounded-2xl bg-white shadow-xl duration-200 hover:-translate-y-4 min-h-[100%]">
+<div routerLink="/clips/details/{{videoId}}" class="dark:shadow-neutral-800 relative group/card hover:cursor-pointer overflow-hidden rounded-2xl shadow-xl duration-200 hover:-translate-y-4 min-h-[100%]">
   <div (click)="openModal(); $event.stopPropagation()" class="absolute top-1 right-1 bg-red-600 hover:w-24 w-6 h-6 rounded-xl z-20 flex justify-between hover:px-2 group/delete">
     <p class="text-white text-s font-bold h-6">
       <span class="hidden group-hover/delete:block">DELETE</span>
@@ -11,7 +11,7 @@
       class="group-hover/card:scale-110 h-full w-full object-cover duration-200"
     />
   </div>
-  <div class="flex-1 overflow-hidden bg-white px-6 py-4">
+  <div class="dark:bg-[#2a2f37] dark:text-white flex-1 overflow-hidden bg-white px-6 py-4">
     <div class="h-28 overflow-hidden">
       <h5 class="group-hover/card:text-[#00adb5] text-xl font-bold">
         {{ videoName }}
