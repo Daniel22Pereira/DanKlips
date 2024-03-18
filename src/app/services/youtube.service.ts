@@ -16,12 +16,9 @@ export class YoutubeService {
   constructor(public http: HttpClient) { }
 
   getVideoId(link: string) {
-    let videoId = link.split('v=')[1];
-    let ampersandPosition = videoId.indexOf('&');
-    if(ampersandPosition != -1) {
-      videoId = videoId.substring(0, ampersandPosition);
-    }
-    return videoId;
+    const regex = /(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#&?]*).*/;
+    const match = link.match(regex);
+    return match && match[2].length === 11 ? match[2] : null;
   }
 
   setVideoData(videoId: string) {

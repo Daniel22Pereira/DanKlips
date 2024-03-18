@@ -31,7 +31,9 @@ export class ModalShareComponent {
   }
 
   youtubeLinkValidator(control: FormControl): { [s: string]: boolean } {
-    if (!control.value || !control.value.includes('https://www.youtube.com/watch?v=')) {
+    const url = control.value;
+    const regex = /^(https?\:\/\/)?((www\.)?youtube\.com|youtu\.?be)\/.+$/;
+    if (!url || !regex.test(url)) {
       return {invalidYoutubeLink: true};
     }
     return null;
