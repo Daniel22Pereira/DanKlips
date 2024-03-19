@@ -17,6 +17,8 @@ import { ClipDetailsComponent } from './clips/clip-details/clip-details.componen
 import { ClipDetailsListComponent } from './clips/clip-details/clip-details-list/clip-details-list.component';
 import { ClipDetailsItemComponent } from './clips/clip-details/clip-details-item/clip-details-item.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
+import { AuthComponent } from './auth/auth.component';
+import { CreateComponent } from './auth/create/create.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { SearchBoxComponent } from './search-box/search-box.component';
     ClipDetailsListComponent,
     ClipDetailsItemComponent,
     SearchBoxComponent,
+    AuthComponent,
+    CreateComponent,
   ],
   imports: [
     BrowserModule,

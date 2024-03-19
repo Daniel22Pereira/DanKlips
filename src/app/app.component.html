@@ -1,5 +1,5 @@
 <div class="w-[100vw] h-[100vh]">
-  <nav class="gradient sm:h-[12%] h-fit">
+  <nav *ngIf="!showNavbar" class="gradient sm:h-[12%] h-fit">
     <div
       class="container mx-auto px-4 flex justify-between items-center h-full"
     >
@@ -39,14 +39,21 @@
         >
           <span class="relative z-10">Share a video !</span>
         </button>
+        <button routerLink="/auth"
+          class="font-semibold relative flex px-2 mt-2 sm:mt-0 sm:px-6 py-1 sm:py-2 rounded-lg items-center justify-center overflow-hidden border-2 border-transparent hover:border-[#EEEEEE] bg-[#1c1c1c] text-white shadow-2xl transition-all before:absolute before:h-0 before:w-0 before:rounded-full before:bg-[#00adb5] before:duration-500 before:ease-out hover:before:h-56 hover:before:w-56"
+        >
+          <span class="relative z-10">Sign in !</span>
+        </button>
       </div>
 
     </div>
+
     <div class="flex justify-center w-full p-2">
       <app-search-box class="flex w-full sm:hidden"></app-search-box>
     </div>
+
   </nav>
-  <div class="h-[88%] w-[100%] bg-[#EEEEEE] dark:bg-[#1c1c1c] overflow-scroll no-scrollbar">
+  <div [ngStyle]="{'height': !showNavbar ? '88%' : '100%'}" class="h-[88%] w-[100%] bg-[#EEEEEE] dark:bg-[#1c1c1c] overflow-scroll no-scrollbar">
     <router-outlet></router-outlet>
   </div>
   <app-modal-share

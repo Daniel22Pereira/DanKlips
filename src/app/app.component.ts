@@ -1,15 +1,17 @@
-import { Component, HostBinding, effect, signal } from '@angular/core';
+import { Component, HostBinding, effect, signal, OnInit } from '@angular/core';
 import { VideoService } from './services/video.service';
 import { YoutubeService } from './services/youtube.service';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'DanKlips';
   showModal = false;
+  showNavbar = false;
   darkMode = signal<boolean>(
     JSON.parse(window.localStorage.getItem('darkMode') ?? 'false')
   );
@@ -18,11 +20,20 @@ export class AppComponent {
     return this.darkMode();
   }
 
-  constructor(private videoService: VideoService, private youtubeService: YoutubeService) {
+  constructor(private videoService: VideoService, private youtubeService: YoutubeService, private router: Router) {
     effect(() => {
       window.localStorage.setItem('darkMode', JSON.stringify(this.darkMode()));
     });
   }
+
+  ngOnInit() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.showNavbar = event.url.startsWith('/auth');
+      }
+    });
+  }
+
 
   onAddVideo(videoLink: string): void {
     this.showModal = false;
