@@ -34,12 +34,12 @@
 
       <div class="lg:w-1/5 flex justify-end">
         <button
-          (click)="showModal = true"
+          (click)="showModal = true" *ngIf="isAuth"
           class="font-semibold relative flex px-2 mt-2 sm:mt-0 sm:px-6 py-1 sm:py-2 rounded-lg items-center justify-center overflow-hidden border-2 border-transparent hover:border-[#EEEEEE] bg-[#1c1c1c] text-white shadow-2xl transition-all before:absolute before:h-0 before:w-0 before:rounded-full before:bg-[#00adb5] before:duration-500 before:ease-out hover:before:h-56 hover:before:w-56"
         >
           <span class="relative z-10">Share a video !</span>
         </button>
-        <button routerLink="/auth"
+        <button routerLink="/auth" *ngIf="!isAuth"
           class="font-semibold relative flex px-2 mt-2 sm:mt-0 sm:px-6 py-1 sm:py-2 rounded-lg items-center justify-center overflow-hidden border-2 border-transparent hover:border-[#EEEEEE] bg-[#1c1c1c] text-white shadow-2xl transition-all before:absolute before:h-0 before:w-0 before:rounded-full before:bg-[#00adb5] before:duration-500 before:ease-out hover:before:h-56 hover:before:w-56"
         >
           <span class="relative z-10">Sign in !</span>
