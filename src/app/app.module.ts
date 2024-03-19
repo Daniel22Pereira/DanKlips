@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { YoutubeService } from './services/youtube.service';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { ClipListComponent } from './clips/clip-list/clip-list.component';
@@ -36,6 +37,7 @@ import { SearchBoxComponent } from './search-box/search-box.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     YoutubeService

@@ -14,4 +14,8 @@ export class SearchBoxComponent {
     this.videoService.setSearchTerm(searchTerm);
   }
 
+  resetSearch(): void {
+    this.videoService.setSearchTerm('');
+  }
+
 }

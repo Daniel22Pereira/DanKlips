@@ -33,6 +33,7 @@ export class VideoService {
   }
 
   getVideos() {
+    console.log('getVideos');
     return from(supabase.from('videos').select('*').order('addedAt', { ascending: false })).pipe(
       map(response => {
         this.videos = response.data as Clip[];
