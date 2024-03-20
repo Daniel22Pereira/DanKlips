@@ -1,5 +1,5 @@
 <div routerLink="/clips/details/{{videoId}}" class="dark:shadow-neutral-800 relative group/card hover:cursor-pointer overflow-hidden rounded-2xl shadow-xl duration-200 hover:-translate-y-4 min-h-[100%]">
-  <div (click)="openModal(); $event.stopPropagation()" class="absolute top-1 right-1 bg-red-600 hover:w-24 w-6 h-6 rounded-xl z-20 flex justify-between hover:px-2 group/delete">
+  <div *ngIf="role === 'admin'" (click)="openModal(); $event.stopPropagation()" class="absolute top-1 right-1 bg-red-600 hover:w-24 w-6 h-6 rounded-xl z-20 flex justify-between hover:px-2 group/delete">
     <p class="text-white text-s font-bold h-6">
       <span class="hidden group-hover/delete:block">DELETE</span>
     </p>

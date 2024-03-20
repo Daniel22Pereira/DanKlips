@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { catchError, tap } from 'rxjs/operators';
-import { BehaviorSubject, throwError } from 'rxjs';
+import { BehaviorSubject, throwError, Observable } from 'rxjs';
 import { User } from '../auth/user.model';
 import { createClient } from '@supabase/supabase-js';
 
@@ -24,6 +24,7 @@ const supabase = createClient(environment.supabase.url, environment.supabase.key
 export class AuthService {
 
   user = new BehaviorSubject<User>(null);
+  role = new BehaviorSubject<string>(null);
   private tokenExpirationTimer: any;
 
   firebaseKey: string = environment.firebaseKey;
@@ -76,6 +77,7 @@ export class AuthService {
   logout() {
     this.user.next(null);
     localStorage.removeItem('userData');
+    this.role.next(null);
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
     }
@@ -119,6 +121,16 @@ export class AuthService {
         console.log('User data added: ', data);
       }
     }
+
+    if (existingUser && existingUser.role) {
+      this.role.next(existingUser.role);
+    } else {
+      this.role.next('user');
+    }
+  }
+
+  getRole(): Observable<string> {
+    return this.role.asObservable();
   }
 
   private handleErrorResponse(errorRes: HttpErrorResponse) {
