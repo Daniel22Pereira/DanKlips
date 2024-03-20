@@ -38,8 +38,13 @@ export class AppComponent implements OnInit {
         this.showNavbar = event.url.startsWith('/auth');
       }
     });
+
+    this.authService.autoLogin();
   }
 
+  onLogout() {
+    this.authService.logout();
+  }
 
   onAddVideo(videoLink: string): void {
     this.showModal = false;
@@ -47,7 +52,9 @@ export class AppComponent implements OnInit {
     this.youtubeService.setVideoData(videoId).subscribe(() => {
       const videoName = this.youtubeService.getVideoName();
       const videoThumbnail = this.youtubeService.getVideoThumbnail();
-      this.videoService.addVideo(videoId, videoLink, videoName, videoThumbnail);
+      
+      const userId = this.authService.user.value?.id;
+      this.videoService.addVideo(userId, videoId, videoLink, videoName, videoThumbnail);
     });
   }
 }

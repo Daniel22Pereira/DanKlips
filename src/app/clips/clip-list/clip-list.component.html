@@ -1,4 +1,4 @@
-<div *ngIf="clipList.length !== 0" class="p-4 sm:p-8 grid gap-y-8 gap-x-4 sm:grid-cols-2 lg:grid-cols-3">
+<div *ngIf="clipList.length !== 0" class="p-4 sm:p-8 grid gap-y-8 gap-x-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
   <app-clip-item *ngFor="let clip of clipList" [videoName]="clip.name" [videoThumbnail]="clip.thumbnail"
     [videoLink]="clip.link" [videoId]="clip.id"></app-clip-item>
 
@@ -6,6 +6,6 @@
 
 <div *ngIf="clipList.length === 0" class="h-full w-full" [@fadeIn]>
   <div class="h-full w-full grid place-items-center">
-    <img class="aspect-auto h-[50%] sm:h-[70%]" src="assets/images/empty.png" />
+    <img class="aspect-auto w-[45%] " src="assets/images/empty.png" />
   </div>
 </div>

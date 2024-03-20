@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create',
@@ -11,7 +12,7 @@ export class CreateComponent {
 
   error: string = null;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   onSubmit(form: NgForm) {
     if (!form.valid) {
@@ -23,7 +24,7 @@ export class CreateComponent {
 
     this.authService.signUp(email, password).subscribe(
       resData => {
-        console.log(resData);
+        this.router.navigate(['/']);
       },
       errorMessage => {
         this.error = errorMessage;

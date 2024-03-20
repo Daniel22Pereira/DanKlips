@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 import { Clip } from '../clips/clip.model';
 import { BehaviorSubject, from, of } from 'rxjs';
+import { Router } from '@angular/router';
 
 const supabase = createClient(environment.supabase.url, environment.supabase.key);
 
@@ -17,6 +18,11 @@ export class VideoService {
   private videosUpdated = new BehaviorSubject<void>(null);
   private searchTerm = new BehaviorSubject<string>('');
 
+  private videoSharingLimits = {
+    user: 5,
+    admin: Infinity
+  };
+
   get videosUpdated$() {
     return this.videosUpdated.asObservable();
   }
@@ -25,11 +31,44 @@ export class VideoService {
     return this.searchTerm.asObservable();
   }
 
-  addVideo(videoId:string, videoLink: string, videoName: string, videoThumbnail: string): void {
-    const newClip = { id:videoId, link: videoLink, name: videoName, thumbnail: videoThumbnail, addedAt: new Date().toISOString() };
-    supabase.from('videos').insert([newClip]).then(() => {
-      this.videosUpdated.next();
-    });
+  constructor(private router: Router) { }
+
+  async addVideo(userId: string, videoId: string, videoLink: string, videoName: string, videoThumbnail: string): Promise<void> {
+
+    const { data: user, error: userError } = await supabase
+      .from('users')
+      .select('role, videos_shared')
+      .eq('id', userId)
+      .single();
+
+    if (userError) {
+      console.error('Error: ', userError);
+      return;
+    }
+
+    if (user.videos_shared >= this.videoSharingLimits[user.role]) {
+      this.router.navigate(['/spam']);
+      return;
+    }
+
+    const newClip = { id: videoId, link: videoLink, name: videoName, thumbnail: videoThumbnail, addedAt: new Date().toISOString() };
+    const { error } = await supabase.from('videos').insert([newClip]);
+    if (error) {
+      console.error('Error: ', error);
+      return;
+    }
+
+    const { error: updateError } = await supabase
+      .from('users')
+      .update({ videos_shared: user.videos_shared + 1 })
+      .eq('id', userId);
+
+    if (updateError) {
+      console.error('Error: ', updateError);
+      return;
+    }
+
+    this.videosUpdated.next();
   }
 
   getVideos() {
